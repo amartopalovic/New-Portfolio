@@ -149,15 +149,12 @@ required field.
       visitor access protection turned on, so the public URL answers 401. Turn
       that protection off in the site's settings before checking the live site,
       then deploy this repository to that site.
-- [ ] Deploy on Netlify:
-  - Connect the Git repository; the build command, publish directory and Node
-    version come from `netlify.toml`.
-  - Make sure the site is reachable at `https://amarr-portfolio.netlify.app`
-    (the URL used in canonical links, Open Graph tags and the sitemap).
-  - In the deploy's file list, check that `_redirects` and `_headers` are
-    present; open a deep link (for example `/projects/natours`) and refresh it.
-  - Click Download CV and confirm a real PDF downloads.
-  - Check the link preview of the site URL in a share debugger or chat app.
+- [ ] Deploy on Netlify: connect the GitHub repository to the Netlify site. The
+      build command and publish directory come from `netlify.toml`, and the Node
+      version is pinned there. After the first deploy, check `/`, a deep link
+      such as `/projects/natours` (open it directly and refresh), the Download CV
+      button (it must download the real PDF), and the link preview of
+      `https://amarr-portfolio.netlify.app`.
 
 ## Design
 
