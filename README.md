@@ -25,6 +25,7 @@ Personal portfolio site for Amar Topalović.
 ```
 public/_redirects        Netlify SPA fallback (/* -> /index.html 200)
 public/_headers          Netlify headers: immutable caching for /assets, nosniff, referrer policy
+netlify.toml             Netlify build settings (npm run build, publish dist, Node 24.13.0)
 public/                  favicon.svg, apple-touch-icon.png, og-image.png, robots.txt, sitemap.xml
 src/main.tsx             Entry: MotionConfig + LazyMotion + RouterProvider
 src/router.tsx           Route table (all routes share the Layout; pages other than Home load lazily)
@@ -116,6 +117,29 @@ Export the photo at 4:5; it is cropped with `object-cover`. Once it is set, the
   static and site-wide (crawlers that don't run JavaScript only see these).
 - `public/sitemap.xml` is a static file: update it when routes or project slugs
   change. `public/robots.txt` points to it.
+
+## Before launch
+
+- [ ] Add `public/Amar-Topalovic-CV.pdf`. Until it exists, the Download CV
+      buttons save the HTML app under that filename, because the SPA fallback
+      answers the missing file with `index.html` (status 200).
+- [ ] Set `liveUrl` on the capstone (and any other project with a live demo) in
+      `src/data/projects.ts`; the "Live demo" links appear automatically.
+- [ ] Add the profile photo (4:5) and project screenshots (16:10) as described
+      under Images: kebab-case files in `src/assets/images/profile/` and
+      `src/assets/images/projects/<project-slug>/`, optimized WebP/JPG/PNG,
+      screenshots well under ~300 KB, alt text, width and height in the data.
+- [ ] If a project slug or route changes, update `public/sitemap.xml`.
+- [ ] Deploy on Netlify:
+  - Connect the Git repository; the build command, publish directory and Node
+    version come from `netlify.toml`.
+  - Make sure the site is reachable at `https://amarr-portfolio.netlify.app`
+    (the URL used in canonical links, Open Graph tags and the sitemap) and that
+    site access protection is off.
+  - In the deploy's file list, check that `_redirects` and `_headers` are
+    present; open a deep link (for example `/projects/natours`) and refresh it.
+  - Click Download CV and confirm a real PDF downloads.
+  - Check the link preview of the site URL in a share debugger or chat app.
 
 ## Design
 
