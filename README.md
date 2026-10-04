@@ -27,13 +27,13 @@ public/_redirects        Netlify SPA fallback (/* -> /index.html 200)
 src/main.tsx             Entry: MotionConfig + RouterProvider
 src/router.tsx           Route table (all routes share the Layout)
 src/data/site.ts         Site data (name, intro, availability, contact links, CV path, nav items)
-src/data/projects.ts     Project data, Home project selection, featured highlights
+src/data/projects.ts     Project data and categories, filter options, Home selection, featured highlights
 src/data/experience.ts   Experience snapshot
 src/data/skills.ts       Core stack list
-src/components/          ButtonLink, button classes, ImageSlot, Reveal
+src/components/          ButtonLink, button classes, ImageSlot, ProjectCard (Home + Projects), Reveal
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
-src/components/home/     Home sections: Hero, FeaturedProject, ProjectCard
-src/pages/               Page components (Home, NotFound, temporary PagePlaceholder)
+src/components/home/     Home sections: Hero, FeaturedProject
+src/pages/               Page components (Home, Projects, NotFound, temporary PagePlaceholder)
 ```
 
 The CV is served from `public/Amar-Topalovic-CV.pdf`.

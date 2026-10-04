@@ -5,11 +5,14 @@ export type ProjectImage = {
   height: number
 }
 
+export type ProjectCategory = 'full-stack' | 'backend-api' | 'ai'
+
 export type Project = {
   slug: string
   title: string
   summary: string
   tags: readonly string[]
+  categories: readonly ProjectCategory[]
   githubUrl: string
   liveUrl?: string
   image?: ProjectImage
@@ -22,6 +25,7 @@ export const projects: readonly Project[] = [
     summary:
       'Multi-tenant lead-capture platform with embeddable widgets, a contact-management dashboard, and live analytics.',
     tags: ['TypeScript', 'Express', 'React', 'MongoDB', 'Redis', 'Docker', 'GitHub Actions'],
+    categories: ['full-stack', 'backend-api'],
     githubUrl:
       'https://github.com/amartopalovic/Capstone-Project-Embeddable-Widget-and-Lead-Capture-Platform-',
   },
@@ -31,6 +35,7 @@ export const projects: readonly Project[] = [
     summary:
       'Turns natural-language messages into study logs, notes, habits, and reflections, with goals, charts, and AI-generated learning reports.',
     tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Ollama', 'Claude API'],
+    categories: ['full-stack', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/ai-work-study-agent',
   },
   {
@@ -39,6 +44,7 @@ export const projects: readonly Project[] = [
     summary:
       'Asynchronous API that enriches product listings with categories, summaries, and data-quality flags, built for safe concurrent job processing.',
     tags: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Zod', 'Ollama'],
+    categories: ['backend-api', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/enrich-jobs-worker',
   },
   {
@@ -47,6 +53,7 @@ export const projects: readonly Project[] = [
     summary:
       'Visual editor for chaining YES/NO decision nodes and running them through an LLM, with highlighted execution paths and live decision logs.',
     tags: ['React', 'TypeScript', 'React Flow', 'Express', 'Inngest', 'OpenAI API'],
+    categories: ['full-stack', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/ai-decision-flow',
   },
   {
@@ -55,6 +62,7 @@ export const projects: readonly Project[] = [
     summary:
       'Tour discovery and review application with a REST API, authentication, and geospatial queries.',
     tags: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Pug', 'Mapbox'],
+    categories: ['full-stack', 'backend-api'],
     githubUrl: 'https://github.com/amartopalovic/natours-app',
   },
   {
@@ -63,9 +71,21 @@ export const projects: readonly Project[] = [
     summary:
       'Command-line scraping pipeline that extracted and validated 60 book records from 63 pages.',
     tags: ['JavaScript', 'Node.js', 'Cheerio', 'Zod'],
+    categories: ['backend-api'],
     githubUrl: 'https://github.com/amartopalovic/Polite-Book-Scraper',
   },
 ]
+
+/** Filter options on the Projects page, in display order ("All" is implicit). */
+export const projectCategoryOptions: readonly { value: ProjectCategory; label: string }[] = [
+  { value: 'full-stack', label: 'Full-stack' },
+  { value: 'backend-api', label: 'Backend/API' },
+  { value: 'ai', label: 'AI' },
+]
+
+export function isProjectCategory(value: string | null): value is ProjectCategory {
+  return projectCategoryOptions.some((option) => option.value === value)
+}
 
 export const featuredProjectSlug = 'embeddable-widget-lead-capture-platform'
 

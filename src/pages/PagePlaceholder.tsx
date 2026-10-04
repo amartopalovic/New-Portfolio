@@ -1,6 +1,8 @@
 // TEMPORARY placeholder for pages whose content is built in a later stage.
 import { useParams } from 'react-router'
+import { getProject } from '../data/projects'
 import { pageTitle, site } from '../data/site'
+import { NotFound } from './NotFound'
 
 type PagePlaceholderProps = {
   name: string
@@ -24,11 +26,7 @@ export function PagePlaceholder({ name, title, detail }: PagePlaceholderProps) {
 
 export function ProjectDetailPlaceholder() {
   const { slug = '' } = useParams()
-  return (
-    <PagePlaceholder
-      name="Project detail"
-      title={pageTitle('Project detail')}
-      detail={`Slug: ${slug}`}
-    />
-  )
+  const project = getProject(slug)
+  if (!project) return <NotFound />
+  return <PagePlaceholder name={project.title} title={pageTitle(project.title)} />
 }

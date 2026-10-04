@@ -1,7 +1,7 @@
 import { Link } from 'react-router'
-import type { Project } from '../../data/projects'
-import { ButtonLink } from '../ButtonLink'
-import { ImageSlot } from '../ImageSlot'
+import type { Project } from '../data/projects'
+import { ButtonLink } from './ButtonLink'
+import { ImageSlot } from './ImageSlot'
 
 type ProjectCardProps = {
   project: Project
@@ -11,8 +11,8 @@ type ProjectCardProps = {
 // click target without nesting interactive elements. Its focus ring is drawn on
 // the ::after box so keyboard focus outlines the entire card. Hover opacity 0.73
 // is an accessibility adaptation of DESIGN.md's 0.5 card hover; it applies only
-// while the stretched link is hovered, so the GitHub link's own hover colour is
-// never dimmed further.
+// while the stretched link is hovered, so the GitHub/Live demo links' own hover colour
+// is never dimmed further.
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="relative flex h-full flex-col gap-4 transition-opacity has-[[data-card-link]:hover]:opacity-73">
@@ -39,15 +39,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </li>
         ))}
       </ul>
-      <ButtonLink
-        to={project.githubUrl}
-        variant="text"
-        size="sm"
-        srLabel={`repository for ${project.title}`}
-        className="relative z-10 mt-auto self-start"
-      >
-        GitHub
-      </ButtonLink>
+      <div className="relative z-10 mt-auto flex flex-wrap gap-x-6 self-start">
+        <ButtonLink
+          to={project.githubUrl}
+          variant="text"
+          size="sm"
+          srLabel={`repository for ${project.title}`}
+        >
+          GitHub
+        </ButtonLink>
+        {project.liveUrl && (
+          <ButtonLink to={project.liveUrl} variant="text" size="sm" srLabel={`of ${project.title}`}>
+            Live demo
+          </ButtonLink>
+        )}
+      </div>
     </article>
   )
 }

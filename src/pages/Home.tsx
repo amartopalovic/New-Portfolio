@@ -1,7 +1,7 @@
 import { ButtonLink } from '../components/ButtonLink'
 import { FeaturedProject } from '../components/home/FeaturedProject'
 import { Hero } from '../components/home/Hero'
-import { ProjectCard } from '../components/home/ProjectCard'
+import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { experience } from '../data/experience'
 import { featuredProjectSlug, getProject, getProjects, homeProjectSlugs } from '../data/projects'
