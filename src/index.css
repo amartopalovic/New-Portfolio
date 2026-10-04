@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens from DESIGN.md (light theme only).
+ * Colors live in plain CSS variables so a dark theme can later override them
+ * on :root without touching components.
+ */
+:root {
+  --canvas: #fafafa;
+  --surface-alt: #ededed;
+  --ink: #0f0f0f;
+  --body: #1e1e1e;
+  /* Decorative only (dividers, disabled states). Fails text contrast; never use for text. */
+  --muted: #b6b6b6;
+  /* Secondary text: 7.03:1 on canvas, 6.27:1 on surface-alt. */
+  --secondary: #565656;
+  --neutral-1: #3c3c3c;
+  --accent: #00ffd0;
+  --on-accent: #0f0f0f;
+  --border: #dedede;
+  --focus-ring: var(--neutral-1);
+
+  --gradient-hero: linear-gradient(rgb(214, 214, 214) 0%, rgb(250, 250, 250) 100%);
+}
+
+@theme inline {
+  --color-*: initial;
+  --color-canvas: var(--canvas);
+  --color-surface-alt: var(--surface-alt);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-secondary: var(--secondary);
+  --color-neutral-1: var(--neutral-1);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --color-border: var(--border);
+  --color-focus-ring: var(--focus-ring);
+}
+
+@theme {
+  --font-*: initial;
+  --font-sans: 'Hanken Grotesk', system-ui, sans-serif;
+
+  /* Type scale. display-xxl is fluid: 56px at 375px wide -> 108px at 1440px wide. */
+  --text-*: initial;
+  --text-display-xxl: clamp(3.5rem, 2.3556rem + 4.8826vw, 6.75rem);
+  --text-display-xxl--line-height: 0.99;
+  --text-display-xxl--letter-spacing: 0.34px;
+  --text-display-xl: 60.4px;
+  --text-display-xl--line-height: 0.97;
+  --text-display-xl--letter-spacing: 0.36px;
+  --text-display-lg: 45.4526px;
+  --text-display-lg--line-height: 0.96;
+  --text-display-lg--letter-spacing: 0.36px;
+  --text-body-xl: 24.4842px;
+  --text-body-xl--line-height: 1.15;
+  --text-body-xl--letter-spacing: 0.73px;
+  --text-body-lg: 20.7474px;
+  --text-body-lg--line-height: 1.16;
+  --text-body-lg--letter-spacing: 0.68px;
+  --text-body-md: 18px;
+  --text-body-md--line-height: 1.5;
+  --text-body-md--letter-spacing: 0px;
+  --text-body-sm: 16px;
+  --text-body-sm--line-height: 1.31;
+  --text-body-sm--letter-spacing: 0.7px;
+  --text-body-sm-tight: 16px;
+  --text-body-sm-tight--line-height: 1.25;
+  --text-body-sm-tight--letter-spacing: 0.7px;
+  --text-button-xl: 41.6667px;
+  --text-button-xl--line-height: 0.96;
+  --text-button-xl--letter-spacing: 0.33px;
+  --text-button-lg: 21.06px;
+  --text-button-lg--line-height: 1.5;
+  --text-button-lg--letter-spacing: 0px;
+
+  /*
+   * DESIGN.md spacing maps onto Tailwind's numeric scale (named tokens would
+   * collide with sizes like max-w-xl): xxs=1 (4px), xs=2 (8px), sm=3 (12px),
+   * md=4 (16px), lg=5 (20px), xl=6 (24px), xxl=7 (28px), xxxl=8 (32px).
+   * Only the non-colliding larger tokens are named.
+   */
+  --spacing-section: 40px;
+  --spacing-band: 52px;
+  /* Accessibility adaptation: DESIGN.md has 0px section padding; keep text off the screen edge. */
+  --spacing-gutter: 20px;
+
+  --radius-*: initial;
+  --radius-none: 0px;
+  --radius-xs: 5px;
+  --radius-full: 9999px;
+
+  /* Content column (max-w-content). Sections stay full-width. */
+  --container-content: 992px;
+
+  /* Reserved box for project screenshots (aspect-screenshot). */
+  --aspect-screenshot: 16 / 10;
+}
+
+@utility bg-hero {
+  background-image: var(--gradient-hero);
+}
+
+@layer base {
+  html {
+    font-synthesis-weight: none;
+    overflow-x: clip;
+    /* Keep keyboard-focused content from hiding under the sticky header (WCAG 2.2 SC 2.4.11). */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-body-md text-body antialiased;
+    overflow-x: clip;
+  }
+
+  /* Single-weight system: hierarchy comes from size, never weight. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  b,
+  strong,
+  button {
+    font-weight: 400;
+  }
+
+  :focus-visible {
+    outline: 0.1rem solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
