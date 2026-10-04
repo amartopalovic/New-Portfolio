@@ -18,7 +18,7 @@ export type About = {
   languages: readonly Language[]
   lookingFor: string
   /** Portrait photo (4:5, 960x1200 WebP). */
-  profileImage?: ImageAsset
+  profileImage: ImageAsset
 }
 
 export const about: About = {

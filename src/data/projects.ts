@@ -1,7 +1,14 @@
-import capstoneOverview from '../assets/images/projects/embeddable-widget-lead-capture-platform/overview.webp'
+import aiWorkStudyCard from '../assets/images/projects/ai-work-study-agent/card.webp'
+import aiWorkStudyOverview from '../assets/images/projects/ai-work-study-agent/overview.webp'
+import decisionFlowCard from '../assets/images/projects/ai-decision-flow/card.webp'
 import decisionFlowOverview from '../assets/images/projects/ai-decision-flow/overview.webp'
+import capstoneCard from '../assets/images/projects/embeddable-widget-lead-capture-platform/card.webp'
+import capstoneOverview from '../assets/images/projects/embeddable-widget-lead-capture-platform/overview.webp'
+import natoursCard from '../assets/images/projects/natours/card.webp'
 import natoursOverview from '../assets/images/projects/natours/overview.webp'
+import politeScraperCard from '../assets/images/projects/polite-scraper/card.webp'
 import politeScraperOverview from '../assets/images/projects/polite-scraper/overview.webp'
+import enrichmentCard from '../assets/images/projects/product-listing-enrichment-api/card.webp'
 import enrichmentOverview from '../assets/images/projects/product-listing-enrichment-api/overview.webp'
 import type { ImageAsset } from './image'
 
@@ -27,53 +34,70 @@ export type Project = {
   categories: readonly ProjectCategory[]
   githubUrl: string
   liveUrl?: string
-  /** Card thumbnail (Home and Projects). */
-  image?: ProjectImage
+  /** Card thumbnail on Home and Projects (960x540 card.webp). */
+  image: ProjectImage
   detail: ProjectDetail
-  /** Detail-page gallery. */
-  screenshots?: readonly ProjectImage[]
+  /** Detail-page gallery, at least one image (1600x900 overview.webp). */
+  screenshots: readonly [ProjectImage, ...ProjectImage[]]
 }
 
-// Project images are 1600x900 WebP (16:9), exported from the git-ignored Pictures/ folder.
-const capstoneImage: ProjectImage = {
-  src: capstoneOverview,
-  alt: 'Screenshot of the Lead Capture platform landing page with the headline “Put a form on someone else’s website and trust what comes back.” and the script tag used to embed a widget.',
-  width: 1600,
-  height: 900,
-  kind: 'screenshot',
+type ProjectImages = Pick<Project, 'image' | 'screenshots'>
+
+// Every project has a 960x540 card thumbnail and a 1600x900 detail image (WebP,
+// 16:9), exported from the git-ignored Pictures/ folder. Both share one alt text.
+function projectImages(
+  card: string,
+  overview: string,
+  alt: string,
+  kind: ProjectImage['kind'],
+): ProjectImages {
+  return {
+    image: { src: card, alt, width: 960, height: 540, kind },
+    screenshots: [{ src: overview, alt, width: 1600, height: 900, kind }],
+  }
 }
 
-const decisionFlowImage: ProjectImage = {
-  src: decisionFlowOverview,
-  alt: 'Illustration of the AI Decision Flow project: a workflow of YES/NO decision nodes run through an LLM, with execution logs, workflow validation, execution limits, step retries and sanitized error handling.',
-  width: 1600,
-  height: 900,
-  kind: 'illustration',
-}
+const capstoneImages = projectImages(
+  capstoneCard,
+  capstoneOverview,
+  'Screenshot of the Lead Capture platform landing page with the headline “Put a form on someone else’s website and trust what comes back.” and the script tag used to embed a widget.',
+  'screenshot',
+)
 
-const enrichmentImage: ProjectImage = {
-  src: enrichmentOverview,
-  alt: 'Illustration of the Product Listing Enrichment API: product listings enter a job queue, are processed by concurrent workers and an AI model, and are stored with categories and confidence scores.',
-  width: 1600,
-  height: 900,
-  kind: 'illustration',
-}
+const aiWorkStudyImages = projectImages(
+  aiWorkStudyCard,
+  aiWorkStudyOverview,
+  'Illustration of the AI Work & Study Agent project: natural-language messages turned into study logs, notes, habits and reflections, with goals, charts, a focus timer, interchangeable AI providers (Ollama and the Claude API) and AI-generated learning reports.',
+  'illustration',
+)
 
-const natoursImage: ProjectImage = {
-  src: natoursOverview,
-  alt: 'Illustration of the Natours project: a tour discovery app with filters, a tour map, tour statistics and reviews, backed by a REST API and MongoDB.',
-  width: 1600,
-  height: 900,
-  kind: 'illustration',
-}
+const decisionFlowImages = projectImages(
+  decisionFlowCard,
+  decisionFlowOverview,
+  'Illustration of the AI Decision Flow project: a workflow of YES/NO decision nodes run through an LLM, with execution logs, workflow validation, execution limits, step retries and sanitized error handling.',
+  'illustration',
+)
 
-const politeScraperImage: ProjectImage = {
-  src: politeScraperOverview,
-  alt: 'Illustration of The Polite Scraper: a command-line pipeline that fetches 63 pages with delays, caching and retries, validates records with Zod, and outputs 60 valid book records.',
-  width: 1600,
-  height: 900,
-  kind: 'illustration',
-}
+const enrichmentImages = projectImages(
+  enrichmentCard,
+  enrichmentOverview,
+  'Illustration of the Product Listing Enrichment API: product listings enter a job queue, are processed by concurrent workers and an AI model, and are stored with categories and confidence scores.',
+  'illustration',
+)
+
+const natoursImages = projectImages(
+  natoursCard,
+  natoursOverview,
+  'Illustration of the Natours project: a tour discovery app with filters, a tour map, tour statistics and reviews, backed by a REST API and MongoDB.',
+  'illustration',
+)
+
+const politeScraperImages = projectImages(
+  politeScraperCard,
+  politeScraperOverview,
+  'Illustration of The Polite Scraper: a command-line pipeline that fetches 63 pages with delays, caching and retries, validates records with Zod, and outputs 60 valid book records.',
+  'illustration',
+)
 
 export const projects: readonly Project[] = [
   {
@@ -86,8 +110,7 @@ export const projects: readonly Project[] = [
     githubUrl:
       'https://github.com/amartopalovic/Capstone-Project-Embeddable-Widget-and-Lead-Capture-Platform-',
     liveUrl: 'https://lead-capture-platform.onrender.com/',
-    image: capstoneImage,
-    screenshots: [capstoneImage],
+    ...capstoneImages,
     detail: {
       overview:
         'A multi-tenant lead-capture platform with embeddable widgets, a contact-management dashboard, and live analytics. I designed and built it independently as the mentor-reviewed capstone of my FlyRank AI Backend Engineer internship.',
@@ -117,6 +140,7 @@ export const projects: readonly Project[] = [
     tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Ollama', 'Claude API'],
     categories: ['full-stack', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/ai-work-study-agent',
+    ...aiWorkStudyImages,
     detail: {
       overview:
         'A full-stack productivity application that converts natural-language messages into study logs, notes, habits, and reflections.',
@@ -145,8 +169,7 @@ export const projects: readonly Project[] = [
     tags: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Zod', 'Ollama'],
     categories: ['backend-api', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/enrich-jobs-worker',
-    image: enrichmentImage,
-    screenshots: [enrichmentImage],
+    ...enrichmentImages,
     detail: {
       overview:
         'An asynchronous API that processes product listings into categories, summaries, data-quality flags, and confidence scores.',
@@ -175,8 +198,7 @@ export const projects: readonly Project[] = [
     tags: ['React', 'TypeScript', 'React Flow', 'Express', 'Inngest', 'OpenAI API'],
     categories: ['full-stack', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/ai-decision-flow',
-    image: decisionFlowImage,
-    screenshots: [decisionFlowImage],
+    ...decisionFlowImages,
     detail: {
       overview:
         'A visual workflow editor for connecting YES/NO decision nodes and executing them through an LLM.',
@@ -204,8 +226,7 @@ export const projects: readonly Project[] = [
     tags: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Pug', 'Mapbox'],
     categories: ['full-stack', 'backend-api'],
     githubUrl: 'https://github.com/amartopalovic/natours-app',
-    image: natoursImage,
-    screenshots: [natoursImage],
+    ...natoursImages,
     detail: {
       overview:
         'A tour discovery and review application built with Node.js, Express, MongoDB, Pug, and Mapbox.',
@@ -231,8 +252,7 @@ export const projects: readonly Project[] = [
     tags: ['JavaScript', 'Node.js', 'Cheerio', 'Zod'],
     categories: ['backend-api'],
     githubUrl: 'https://github.com/amartopalovic/Polite-Book-Scraper',
-    image: politeScraperImage,
-    screenshots: [politeScraperImage],
+    ...politeScraperImages,
     detail: {
       overview:
         'A command-line scraping pipeline built as a FlyRank internship project, extracting and validating book records from a practice bookstore.',

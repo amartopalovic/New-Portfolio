@@ -42,10 +42,11 @@ export function ProjectDetail() {
   const project = getProject(slug)
   if (!project) return <NotFound />
 
-  const { detail } = project
-  const gallery = project.screenshots ?? []
-  // "Screenshots" only when every image is a real capture (or none exist yet).
-  const galleryTitle = gallery.every((image) => image.kind === 'screenshot') ? 'Screenshots' : 'Preview'
+  const { detail, screenshots } = project
+  // "Screenshots" only when every image is a real capture; otherwise "Preview".
+  const galleryTitle = screenshots.every((image) => image.kind === 'screenshot')
+    ? 'Screenshots'
+    : 'Preview'
 
   return (
     <>
@@ -101,31 +102,19 @@ export function ProjectDetail() {
       </DetailSection>
 
       <DetailSection title={galleryTitle}>
-        {gallery.length > 0 ? (
-          // One image spans the full column; two or more use a 2-column grid.
-          <ul className={`grid gap-8 ${gallery.length > 1 ? 'md:grid-cols-2' : ''}`}>
-            {gallery.map((image) => (
-              <li key={image.src}>
-                <figure className="flex flex-col gap-2">
-                  <ImageSlot image={image} />
-                  <figcaption className="text-body-sm text-secondary">
-                    {image.kind === 'screenshot' ? 'Screenshot' : 'Project illustration'}
-                  </figcaption>
-                </figure>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          // TEMPORARY: two placeholder slots until real screenshots are added.
-          <ul aria-hidden="true" className="grid gap-8 md:grid-cols-2">
-            <li>
-              <ImageSlot />
+        {/* One image spans the full column; two or more use a 2-column grid. */}
+        <ul className={`grid gap-8 ${screenshots.length > 1 ? 'md:grid-cols-2' : ''}`}>
+          {screenshots.map((image) => (
+            <li key={image.src}>
+              <figure className="flex flex-col gap-2">
+                <ImageSlot image={image} />
+                <figcaption className="text-body-sm text-secondary">
+                  {image.kind === 'screenshot' ? 'Screenshot' : 'Project illustration'}
+                </figcaption>
+              </figure>
             </li>
-            <li>
-              <ImageSlot />
-            </li>
-          </ul>
-        )}
+          ))}
+        </ul>
       </DetailSection>
     </>
   )

@@ -53,41 +53,47 @@ Contact page.
 
 - Profile images go in `src/assets/images/profile/`, project images in
   `src/assets/images/projects/<project-slug>/`.
-- Use kebab-case filenames (for example `overview.webp`).
-- Export optimized WebP (or optimized JPG/PNG): project images at 1600x900
-  (16:9), the profile photo at 960x1200 (4:5); keep each file well under
-  ~300 KB.
+- Use kebab-case filenames.
+- Export optimized WebP (or optimized JPG/PNG) and keep each file well under
+  ~300 KB:
+  - `card.webp`, 960x540 (16:9): the card thumbnail on Home and Projects.
+  - `overview.webp`, 1600x900 (16:9): the detail-page image (also used for the
+    Home featured project, which can render up to ~983px wide below `lg`).
+  - Profile photo, 960x1200 (4:5).
 - Every image needs alt text, which lives in the data files next to the image
   reference.
 - `Pictures/` at the repo root holds the original source files. It is
-  git-ignored: only the optimized exports in `src/assets/images/` are committed.
+  git-ignored source material: export both sizes from the originals and commit
+  only the optimized files in `src/assets/images/`.
 
-### Adding a project image
+### Adding a project's images
 
 Project images render in `ImageSlot`, a fixed 16:9 box (`aspect-screenshot`)
-that reserves space before the image loads. Each image is a `ProjectImage` in
-`src/data/projects.ts` with a `kind`:
+that reserves space before the image loads. Every project must have images:
+`image` and `screenshots` are required fields on `Project`, so TypeScript
+rejects a project without them.
+
+- `image`: the card thumbnail (`card.webp`, no visible caption).
+- `screenshots`: the detail-page gallery (at least one `overview.webp`). Each
+  image gets a small caption ("Screenshot" or "Project illustration"). One image
+  spans the full column; two or more use a 2-column grid. The section is titled
+  "Screenshots" when every image is a screenshot, otherwise "Preview".
+
+Every image must be labelled with a `kind`:
 
 - `screenshot`: a real capture of the running app.
 - `illustration`: a concept graphic (for example AI-generated). Say so in the
   alt text ("Illustration of ...").
 
-A project has two image fields:
+1. Export `card.webp` (960x540) and `overview.webp` (1600x900) into
+   `src/assets/images/projects/<project-slug>/`.
+2. Import both at the top of `src/data/projects.ts` and create the pair once,
+   with one shared alt text:
+   `const natoursImages = projectImages(natoursCard, natoursOverview, 'Illustration of ...', 'illustration')`
+3. Spread it into the project: `...natoursImages`. For a larger gallery, add
+   more entries to `screenshots`.
 
-- `image`: the card thumbnail on Home and Projects (no visible caption).
-- `screenshots`: the gallery on the project's detail page. Each image gets a
-  small caption ("Screenshot" or "Project illustration"). One image spans the
-  full column; two or more use a 2-column grid. The section is titled
-  "Screenshots" when every image is a screenshot, otherwise "Preview".
-
-1. Put the file in `src/assets/images/projects/<project-slug>/`.
-2. Import it at the top of `src/data/projects.ts` and define the image once:
-   `const natoursImage: ProjectImage = { src: natoursOverview, alt: '...', width: 1600, height: 900, kind: 'illustration' }`
-3. Set `image: natoursImage` and `screenshots: [natoursImage]` (add more entries
-   to `screenshots` for a larger gallery).
-
-Images are cropped with `object-cover`, so export at exactly 16:9. Projects
-without images keep the temporary placeholders.
+Images are cropped with `object-cover`, so export at exactly 16:9.
 
 ### Adding the profile photo
 
@@ -100,7 +106,8 @@ sits at the top of the page.
 3. Set `profileImage` on `about` with meaningful alt text and the file's real
    pixel size: `profileImage: { src: profilePhoto, alt: '...', width: 960, height: 1200 }`
 
-Export the photo at 4:5; it is cropped with `object-cover`.
+Export the photo at 4:5; it is cropped with `object-cover`. `profileImage` is a
+required field.
 
 ## Performance
 
@@ -134,9 +141,9 @@ Export the photo at 4:5; it is cropped with `object-cover`.
       buttons save the HTML app under that filename, because the SPA fallback
       answers the missing file with `index.html` (status 200).
 - [ ] Replace the AI-generated project illustrations with real screenshots when
-      available (set `kind: 'screenshot'`), and add an image for the AI Work &
-      Study Agent, which still shows placeholders.
-- [x] Capstone `liveUrl`, profile photo and project images are set.
+      available (set `kind: 'screenshot'`).
+- [x] Capstone `liveUrl`, profile photo and images for all six projects
+      (including the AI Work & Study Agent) are set.
 - [ ] If a project slug or route changes, update `public/sitemap.xml`.
 - [ ] Netlify: the existing `amarr-portfolio` site was created earlier and has
       visitor access protection turned on, so the public URL answers 401. Turn

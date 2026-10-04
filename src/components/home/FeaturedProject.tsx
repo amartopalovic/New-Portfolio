@@ -15,7 +15,9 @@ export function FeaturedProject({ project }: FeaturedProjectProps) {
     <div className="flex flex-col gap-8">
       <h2 className="text-display-lg text-ink">Featured project</h2>
       <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-12">
-        <ImageSlot image={project.image} />
+        {/* Below lg this image spans the whole column (up to ~983px), wider than the
+            960px card thumbnail, so it uses the 1600px detail image instead. */}
+        <ImageSlot image={project.screenshots[0]} />
         <div className="flex flex-col gap-6">
           <h3 className="text-body-xl text-ink">{project.title}</h3>
           <p>{project.summary}</p>
