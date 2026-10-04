@@ -137,7 +137,7 @@ required field.
 
 ## Before launch
 
-- [ ] Add `public/Amar-Topalovic-CV.pdf`. Until it exists, the Download CV
+- [x] Add `public/Amar-Topalovic-CV.pdf`. Until it exists, the Download CV
       buttons save the HTML app under that filename, because the SPA fallback
       answers the missing file with `index.html` (status 200).
 - [ ] Replace the AI-generated project illustrations with real screenshots when
