@@ -67,7 +67,7 @@ export function Header() {
               ))}
             </ul>
           </nav>
-          <ButtonLink to={site.cvPath} download>
+          <ButtonLink to={site.cvPath} download srLabel="(PDF)">
             Download CV
           </ButtonLink>
         </div>
@@ -111,7 +111,13 @@ export function Header() {
                   </li>
                 ))}
               </ul>
-              <ButtonLink to={site.cvPath} download className="self-start" onClick={closeMenu}>
+              <ButtonLink
+                to={site.cvPath}
+                download
+                srLabel="(PDF)"
+                className="self-start"
+                onClick={closeMenu}
+              >
                 Download CV
               </ButtonLink>
             </nav>
