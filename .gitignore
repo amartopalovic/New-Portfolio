@@ -15,6 +15,9 @@ dist-ssr
 # Netlify CLI local state
 .netlify
 
+# Original image sources (optimized exports live in src/assets/images)
+Pictures/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

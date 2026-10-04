@@ -14,15 +14,23 @@ const defaultLabels: Record<ImageRatio, string> = {
 
 type ImageSlotProps = {
   image?: ImageAsset
-  /** Reserved box shape: 16:10 screenshot (default) or 4:5 portrait. */
+  /** Reserved box shape: 16:9 screenshot (default) or 4:5 portrait. */
   ratio?: ImageRatio
   /** Placeholder text when no image is set. */
   label?: string
+  /** Above-the-fold image: load eagerly with high fetch priority. Everything else stays lazy. */
+  priority?: boolean
   className?: string
 }
 
 /** Fixed-ratio box so images never cause layout shift while loading. */
-export function ImageSlot({ image, ratio = 'screenshot', label, className = '' }: ImageSlotProps) {
+export function ImageSlot({
+  image,
+  ratio = 'screenshot',
+  label,
+  priority = false,
+  className = '',
+}: ImageSlotProps) {
   return (
     <div className={`relative overflow-hidden bg-border ${ratioClasses[ratio]} ${className}`.trim()}>
       {image ? (
@@ -31,7 +39,8 @@ export function ImageSlot({ image, ratio = 'screenshot', label, className = '' }
           alt={image.alt}
           width={image.width}
           height={image.height}
-          loading="lazy"
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
           decoding="async"
           className="absolute inset-0 size-full object-cover"
         />

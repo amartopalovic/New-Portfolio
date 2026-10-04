@@ -51,46 +51,56 @@ Contact page.
 
 ## Images
 
-- Profile images go in `src/assets/images/profile/`, project screenshots in
+- Profile images go in `src/assets/images/profile/`, project images in
   `src/assets/images/projects/<project-slug>/`.
-- Use kebab-case filenames (for example `dashboard-overview.webp`).
-- Export optimized files (WebP, or optimized JPG/PNG) at sensible dimensions;
-  keep each screenshot well under ~300 KB.
+- Use kebab-case filenames (for example `overview.webp`).
+- Export optimized WebP (or optimized JPG/PNG): project images at 1600x900
+  (16:9), the profile photo at 960x1200 (4:5); keep each file well under
+  ~300 KB.
 - Every image needs alt text, which lives in the data files next to the image
   reference.
+- `Pictures/` at the repo root holds the original source files. It is
+  git-ignored: only the optimized exports in `src/assets/images/` are committed.
 
-### Adding a screenshot
+### Adding a project image
 
-Screenshots render in `ImageSlot`, a fixed 16:10 box (`aspect-screenshot`)
-that reserves space before the image loads. A project has two image fields in
-`src/data/projects.ts`:
+Project images render in `ImageSlot`, a fixed 16:9 box (`aspect-screenshot`)
+that reserves space before the image loads. Each image is a `ProjectImage` in
+`src/data/projects.ts` with a `kind`:
 
-- `image`: the card thumbnail on Home and Projects (one image).
-- `screenshots`: the gallery on the project's detail page (any number).
+- `screenshot`: a real capture of the running app.
+- `illustration`: a concept graphic (for example AI-generated). Say so in the
+  alt text ("Illustration of ...").
 
-1. Put the files in `src/assets/images/projects/<project-slug>/`.
-2. Import them at the top of `src/data/projects.ts`:
-   `import aiDecisionFlowEditor from '../assets/images/projects/ai-decision-flow/editor.webp'`
-3. Set `image` and/or add entries to `screenshots`, each with meaningful alt text
-   and the file's real pixel size:
-   `image: { src: aiDecisionFlowEditor, alt: 'Describe what the screenshot shows', width: 1600, height: 1000 }`
-   `screenshots: [{ src: aiDecisionFlowEditor, alt: '...', width: 1600, height: 1000 }]`
+A project has two image fields:
 
-Images are cropped to 16:10 with `object-cover`, so export at that ratio. Once
-a project has an `image`, its card placeholder disappears; once it has
-`screenshots`, the two placeholder slots on its detail page are replaced.
+- `image`: the card thumbnail on Home and Projects (no visible caption).
+- `screenshots`: the gallery on the project's detail page. Each image gets a
+  small caption ("Screenshot" or "Project illustration"). One image spans the
+  full column; two or more use a 2-column grid. The section is titled
+  "Screenshots" when every image is a screenshot, otherwise "Preview".
+
+1. Put the file in `src/assets/images/projects/<project-slug>/`.
+2. Import it at the top of `src/data/projects.ts` and define the image once:
+   `const natoursImage: ProjectImage = { src: natoursOverview, alt: '...', width: 1600, height: 900, kind: 'illustration' }`
+3. Set `image: natoursImage` and `screenshots: [natoursImage]` (add more entries
+   to `screenshots` for a larger gallery).
+
+Images are cropped with `object-cover`, so export at exactly 16:9. Projects
+without images keep the temporary placeholders.
 
 ### Adding the profile photo
 
-The About page shows the photo in a 4:5 `ImageSlot` (`aspect-portrait`).
+The About page shows the photo in a 4:5 `ImageSlot` (`aspect-portrait`). It is
+the only image loaded eagerly with high fetch priority (`priority`), because it
+sits at the top of the page.
 
-1. Put the file in `src/assets/images/profile/` (for example `amar-topalovic.webp`).
+1. Put the file in `src/assets/images/profile/` (currently `amar-topalovic.webp`).
 2. Import it at the top of `src/data/about.ts`.
 3. Set `profileImage` on `about` with meaningful alt text and the file's real
-   pixel size: `profileImage: { src: profilePhoto, alt: 'Portrait of Amar Topalović', width: 800, height: 1000 }`
+   pixel size: `profileImage: { src: profilePhoto, alt: '...', width: 960, height: 1200 }`
 
-Export the photo at 4:5; it is cropped with `object-cover`. Once it is set, the
-"Photo placeholder" block disappears.
+Export the photo at 4:5; it is cropped with `object-cover`.
 
 ## Performance
 
@@ -123,19 +133,20 @@ Export the photo at 4:5; it is cropped with `object-cover`. Once it is set, the
 - [ ] Add `public/Amar-Topalovic-CV.pdf`. Until it exists, the Download CV
       buttons save the HTML app under that filename, because the SPA fallback
       answers the missing file with `index.html` (status 200).
-- [ ] Set `liveUrl` on the capstone (and any other project with a live demo) in
-      `src/data/projects.ts`; the "Live demo" links appear automatically.
-- [ ] Add the profile photo (4:5) and project screenshots (16:10) as described
-      under Images: kebab-case files in `src/assets/images/profile/` and
-      `src/assets/images/projects/<project-slug>/`, optimized WebP/JPG/PNG,
-      screenshots well under ~300 KB, alt text, width and height in the data.
+- [ ] Replace the AI-generated project illustrations with real screenshots when
+      available (set `kind: 'screenshot'`), and add an image for the AI Work &
+      Study Agent, which still shows placeholders.
+- [x] Capstone `liveUrl`, profile photo and project images are set.
 - [ ] If a project slug or route changes, update `public/sitemap.xml`.
+- [ ] Netlify: the existing `amarr-portfolio` site was created earlier and has
+      visitor access protection turned on, so the public URL answers 401. Turn
+      that protection off in the site's settings before checking the live site,
+      then deploy this repository to that site.
 - [ ] Deploy on Netlify:
   - Connect the Git repository; the build command, publish directory and Node
     version come from `netlify.toml`.
   - Make sure the site is reachable at `https://amarr-portfolio.netlify.app`
-    (the URL used in canonical links, Open Graph tags and the sitemap) and that
-    site access protection is off.
+    (the URL used in canonical links, Open Graph tags and the sitemap).
   - In the deploy's file list, check that `_redirects` and `_headers` are
     present; open a deep link (for example `/projects/natours`) and refresh it.
   - Click Download CV and confirm a real PDF downloads.

@@ -44,6 +44,7 @@ export function About() {
           <ImageSlot
             image={about.profileImage}
             ratio="portrait"
+            priority
             className="order-first w-2/3 max-w-xs lg:order-none lg:w-auto lg:max-w-none"
           />
         </div>

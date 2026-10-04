@@ -4,18 +4,21 @@ type TagListProps = {
   'aria-label'?: string
 }
 
-/** Plain-text list separated by decorative dots (hidden from assistive tech). */
+/**
+ * Plain-text list separated by decorative dots (hidden from assistive tech). The
+ * dot follows its item, so a wrapped line never starts with a separator.
+ */
 export function TagList({ items, className, 'aria-label': ariaLabel }: TagListProps) {
   return (
     <ul aria-label={ariaLabel} className={className}>
       {items.map((item, index) => (
         <li key={item}>
-          {index > 0 && (
-            <span aria-hidden="true" className="mr-2">
+          {item}
+          {index < items.length - 1 && (
+            <span aria-hidden="true" className="ml-2">
               ·
             </span>
           )}
-          {item}
         </li>
       ))}
     </ul>

@@ -1,3 +1,4 @@
+import profilePhoto from '../assets/images/profile/amar-topalovic.webp'
 import type { ImageAsset } from './image'
 
 export type AboutBlock = {
@@ -16,7 +17,7 @@ export type About = {
   howIWork: string
   languages: readonly Language[]
   lookingFor: string
-  /** Portrait photo (4:5). Not supplied yet. */
+  /** Portrait photo (4:5, 960x1200 WebP). */
   profileImage?: ImageAsset
 }
 
@@ -47,4 +48,10 @@ export const about: About = {
   ],
   lookingFor:
     'Full-time positions, part-time positions, and internships in Bosnia and Herzegovina, with remote, hybrid, or on-site arrangements.',
+  profileImage: {
+    src: profilePhoto,
+    alt: 'Portrait of Amar Topalović in a white T-shirt with a sea harbour in the background.',
+    width: 960,
+    height: 1200,
+  },
 }
