@@ -1,9 +1,4 @@
-export type ProjectImage = {
-  src: string
-  alt: string
-  width: number
-  height: number
-}
+import type { ImageAsset } from './image'
 
 export type ProjectCategory = 'full-stack' | 'backend-api' | 'ai'
 
@@ -23,10 +18,10 @@ export type Project = {
   githubUrl: string
   liveUrl?: string
   /** Card thumbnail (Home and Projects). */
-  image?: ProjectImage
+  image?: ImageAsset
   detail: ProjectDetail
   /** Detail-page gallery. */
-  screenshots?: readonly ProjectImage[]
+  screenshots?: readonly ImageAsset[]
 }
 
 export const projects: readonly Project[] = [

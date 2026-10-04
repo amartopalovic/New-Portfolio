@@ -29,11 +29,13 @@ src/router.tsx           Route table (all routes share the Layout)
 src/data/site.ts         Site data (name, intro, availability, contact links, CV path, nav items)
 src/data/projects.ts     Project data (card + detail content, categories), filter options, Home selection
 src/data/experience.ts   Experience snapshot
-src/data/skills.ts       Core stack list
+src/data/about.ts        About page content (intro, what I do, languages, profile photo)
+src/data/image.ts        Shared ImageAsset type
+src/data/skills.ts       Core stack list and About skill groups
 src/components/          ButtonLink, button classes, ImageSlot, ProjectCard (Home + Projects), Reveal
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
 src/components/home/     Home sections: Hero, FeaturedProject
-src/pages/               Page components (Home, Projects, ProjectDetail, NotFound, temporary PagePlaceholder)
+src/pages/               Page components (Home, Projects, ProjectDetail, About, NotFound, temporary PagePlaceholder)
 ```
 
 The CV is served from `public/Amar-Topalovic-CV.pdf`.
@@ -68,6 +70,18 @@ that reserves space before the image loads. A project has two image fields in
 Images are cropped to 16:10 with `object-cover`, so export at that ratio. Once
 a project has an `image`, its card placeholder disappears; once it has
 `screenshots`, the two placeholder slots on its detail page are replaced.
+
+### Adding the profile photo
+
+The About page shows the photo in a 4:5 `ImageSlot` (`aspect-portrait`).
+
+1. Put the file in `src/assets/images/profile/` (for example `amar-topalovic.webp`).
+2. Import it at the top of `src/data/about.ts`.
+3. Set `profileImage` on `about` with meaningful alt text and the file's real
+   pixel size: `profileImage: { src: profilePhoto, alt: 'Portrait of Amar Topalović', width: 800, height: 1000 }`
+
+Export the photo at 4:5; it is cropped with `object-cover`. Once it is set, the
+"Photo placeholder" block disappears.
 
 ## Design
 

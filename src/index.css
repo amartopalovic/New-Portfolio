@@ -94,8 +94,9 @@
   /* Content column (max-w-content). Sections stay full-width. */
   --container-content: 992px;
 
-  /* Reserved box for project screenshots (aspect-screenshot). */
+  /* Reserved boxes for images: project screenshots and the profile photo. */
   --aspect-screenshot: 16 / 10;
+  --aspect-portrait: 4 / 5;
 }
 
 @utility bg-hero {
