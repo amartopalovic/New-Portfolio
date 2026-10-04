@@ -46,7 +46,8 @@ export function ProjectDetail() {
     <>
       <title>{pageTitle(project.title)}</title>
 
-      <section className="px-gutter py-band lg:py-35">
+      {/* No bottom padding: the canvas Overview band continues this intro block. */}
+      <section className="px-gutter pt-band lg:pt-35">
         <div className="mx-auto flex max-w-content flex-col gap-6">
           <Link
             to="/projects"
@@ -85,23 +86,23 @@ export function ProjectDetail() {
         </div>
       </section>
 
-      <DetailSection title="Overview" alt>
+      <DetailSection title="Overview">
         <p className="max-w-prose">{detail.overview}</p>
       </DetailSection>
 
-      <DetailSection title="What I built">
+      <DetailSection title="What I built" alt>
         <BulletList items={detail.built} />
       </DetailSection>
 
-      <DetailSection title="Key technical decisions" alt>
+      <DetailSection title="Key technical decisions">
         <BulletList items={detail.decisions} />
       </DetailSection>
 
-      <DetailSection title="Result">
+      <DetailSection title="Result" alt>
         <p className="max-w-prose">{detail.result}</p>
       </DetailSection>
 
-      <DetailSection title="Screenshots" alt>
+      <DetailSection title="Screenshots">
         {screenshots && screenshots.length > 0 ? (
           <ul className="grid gap-8 md:grid-cols-2">
             {screenshots.map((image) => (
