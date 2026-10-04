@@ -27,13 +27,13 @@ public/_redirects        Netlify SPA fallback (/* -> /index.html 200)
 src/main.tsx             Entry: MotionConfig + RouterProvider
 src/router.tsx           Route table (all routes share the Layout)
 src/data/site.ts         Site data (name, intro, availability, contact links, CV path, nav items)
-src/data/projects.ts     Project data and categories, filter options, Home selection, featured highlights
+src/data/projects.ts     Project data (card + detail content, categories), filter options, Home selection
 src/data/experience.ts   Experience snapshot
 src/data/skills.ts       Core stack list
 src/components/          ButtonLink, button classes, ImageSlot, ProjectCard (Home + Projects), Reveal
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
 src/components/home/     Home sections: Hero, FeaturedProject
-src/pages/               Page components (Home, Projects, NotFound, temporary PagePlaceholder)
+src/pages/               Page components (Home, Projects, ProjectDetail, NotFound, temporary PagePlaceholder)
 ```
 
 The CV is served from `public/Amar-Topalovic-CV.pdf`.
@@ -50,18 +50,24 @@ The CV is served from `public/Amar-Topalovic-CV.pdf`.
 
 ### Adding a screenshot
 
-Project screenshots render in `ImageSlot`, a fixed 16:10 box (`aspect-screenshot`)
-that reserves space before the image loads.
+Screenshots render in `ImageSlot`, a fixed 16:10 box (`aspect-screenshot`)
+that reserves space before the image loads. A project has two image fields in
+`src/data/projects.ts`:
 
-1. Put the file in `src/assets/images/projects/<project-slug>/`.
-2. Import it at the top of `src/data/projects.ts`:
+- `image`: the card thumbnail on Home and Projects (one image).
+- `screenshots`: the gallery on the project's detail page (any number).
+
+1. Put the files in `src/assets/images/projects/<project-slug>/`.
+2. Import them at the top of `src/data/projects.ts`:
    `import aiDecisionFlowEditor from '../assets/images/projects/ai-decision-flow/editor.webp'`
-3. Set `image` on that project with meaningful alt text and the file's real
-   pixel size:
+3. Set `image` and/or add entries to `screenshots`, each with meaningful alt text
+   and the file's real pixel size:
    `image: { src: aiDecisionFlowEditor, alt: 'Describe what the screenshot shows', width: 1600, height: 1000 }`
+   `screenshots: [{ src: aiDecisionFlowEditor, alt: '...', width: 1600, height: 1000 }]`
 
-The image is cropped to 16:10 with `object-cover`, so export at that ratio.
-Once a project has an image, its "Screenshot placeholder" block disappears.
+Images are cropped to 16:10 with `object-cover`, so export at that ratio. Once
+a project has an `image`, its card placeholder disappears; once it has
+`screenshots`, the two placeholder slots on its detail page are replaced.
 
 ## Design
 

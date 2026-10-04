@@ -7,6 +7,13 @@ export type ProjectImage = {
 
 export type ProjectCategory = 'full-stack' | 'backend-api' | 'ai'
 
+export type ProjectDetail = {
+  overview: string
+  built: readonly string[]
+  decisions: readonly string[]
+  result: string
+}
+
 export type Project = {
   slug: string
   title: string
@@ -15,7 +22,11 @@ export type Project = {
   categories: readonly ProjectCategory[]
   githubUrl: string
   liveUrl?: string
+  /** Card thumbnail (Home and Projects). */
   image?: ProjectImage
+  detail: ProjectDetail
+  /** Detail-page gallery. */
+  screenshots?: readonly ProjectImage[]
 }
 
 export const projects: readonly Project[] = [
@@ -28,6 +39,26 @@ export const projects: readonly Project[] = [
     categories: ['full-stack', 'backend-api'],
     githubUrl:
       'https://github.com/amartopalovic/Capstone-Project-Embeddable-Widget-and-Lead-Capture-Platform-',
+    detail: {
+      overview:
+        'A multi-tenant lead-capture platform with embeddable widgets, a contact-management dashboard, and live analytics. I designed and built it independently as the mentor-reviewed capstone of my FlyRank AI Backend Engineer internship.',
+      built: [
+        'Embeddable widgets that capture leads',
+        'A contact-management dashboard with live analytics',
+        'Authentication and role-based permissions',
+        'Public API validation',
+        'Background email and webhook delivery with retries',
+        'Docker setup, GitHub Actions CI, and API documentation',
+      ],
+      decisions: [
+        'Workspace data isolation between tenants',
+        'Role-based permissions',
+        'Validation on the public API',
+        'Background delivery of emails and webhooks with retries',
+      ],
+      result:
+        'Delivered as a mentor-reviewed capstone and deployed as a public portfolio demo with synthetic data, supported by Docker, GitHub Actions CI, API documentation, and 887 automated tests.',
+    },
   },
   {
     slug: 'ai-work-study-agent',
@@ -37,6 +68,25 @@ export const projects: readonly Project[] = [
     tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Tailwind CSS', 'Ollama', 'Claude API'],
     categories: ['full-stack', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/ai-work-study-agent',
+    detail: {
+      overview:
+        'A full-stack productivity application that converts natural-language messages into study logs, notes, habits, and reflections.',
+      built: [
+        'Natural-language input turned into study logs, notes, habits, and reflections',
+        'Goals and charts',
+        'A focus timer',
+        'AI-generated learning reports',
+      ],
+      decisions: [
+        'Interchangeable AI providers (Ollama and the Claude API)',
+        'Structured AI responses with a fallback classifier',
+        'Token revocation',
+        'Input validation',
+        'Corrected goal-tracking logic',
+      ],
+      result:
+        'A working full-stack application with goals, charts, a focus timer, and AI-generated learning reports, built with React, Node.js, Express, MongoDB, and Tailwind CSS.',
+    },
   },
   {
     slug: 'product-listing-enrichment-api',
@@ -46,6 +96,25 @@ export const projects: readonly Project[] = [
     tags: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Zod', 'Ollama'],
     categories: ['backend-api', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/enrich-jobs-worker',
+    detail: {
+      overview:
+        'An asynchronous API that processes product listings into categories, summaries, data-quality flags, and confidence scores.',
+      built: [
+        'Asynchronous job processing for product listings',
+        'Schema validation with a repair attempt for malformed model responses',
+        'Atomic job claiming',
+        'Crashed-worker recovery',
+        'Bounded retries with persistent backoff',
+      ],
+      decisions: [
+        'Schema validation (Zod) with a repair attempt for malformed model responses',
+        'Atomic job claiming, so concurrent workers do not claim the same job',
+        'Crashed-worker recovery',
+        'Bounded retries with persistent backoff',
+      ],
+      result:
+        'Tested three concurrent workers against 40 queued jobs with no duplicate claims.',
+    },
   },
   {
     slug: 'ai-decision-flow',
@@ -55,6 +124,24 @@ export const projects: readonly Project[] = [
     tags: ['React', 'TypeScript', 'React Flow', 'Express', 'Inngest', 'OpenAI API'],
     categories: ['full-stack', 'ai'],
     githubUrl: 'https://github.com/amartopalovic/ai-decision-flow',
+    detail: {
+      overview:
+        'A visual workflow editor for connecting YES/NO decision nodes and executing them through an LLM.',
+      built: [
+        'A visual editor built with React Flow',
+        'Execution of YES/NO decision nodes through an LLM',
+        'Highlighted execution paths',
+        'Continuously updated decision logs',
+      ],
+      decisions: [
+        'Inngest steps to retry individual model decisions',
+        'Validation of workflow structure',
+        'An execution limit',
+        'Sanitized outgoing errors to reduce exposure of sensitive information',
+      ],
+      result:
+        'A working editor that runs decision flows through an LLM, with per-decision retries, structure validation, an execution limit, and sanitized errors.',
+    },
   },
   {
     slug: 'natours',
@@ -64,6 +151,22 @@ export const projects: readonly Project[] = [
     tags: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Pug', 'Mapbox'],
     categories: ['full-stack', 'backend-api'],
     githubUrl: 'https://github.com/amartopalovic/natours-app',
+    detail: {
+      overview:
+        'A tour discovery and review application built with Node.js, Express, MongoDB, Pug, and Mapbox.',
+      built: [
+        'REST APIs with filtering, sorting, and pagination',
+        'Authentication, role-based permissions, and password recovery',
+        'Tour discovery and reviews',
+      ],
+      decisions: [
+        'Geospatial queries',
+        'Aggregation-based tour statistics',
+        'Review-rating recalculation after review creation, updates, and deletion',
+      ],
+      result:
+        'A tour discovery and review application with REST APIs, authentication, role-based permissions, and password recovery.',
+    },
   },
   {
     slug: 'polite-scraper',
@@ -73,6 +176,25 @@ export const projects: readonly Project[] = [
     tags: ['JavaScript', 'Node.js', 'Cheerio', 'Zod'],
     categories: ['backend-api'],
     githubUrl: 'https://github.com/amartopalovic/Polite-Book-Scraper',
+    detail: {
+      overview:
+        'A command-line scraping pipeline built as a FlyRank internship project, extracting and validating book records from a practice bookstore.',
+      built: [
+        'Extraction of book records from 63 pages',
+        'Request delays, local caching, timeouts, and selective retries',
+        'Per-page failure handling',
+        'Separate outputs for valid records, rejected records, and run diagnostics',
+      ],
+      decisions: [
+        'Request delays',
+        'Local caching',
+        'Timeouts and selective retries',
+        'Validation with Zod',
+        'Separate outputs for valid records, rejected records, and run diagnostics',
+      ],
+      result:
+        'Extracted and validated 60 book records from 63 pages.',
+    },
   },
 ]
 
