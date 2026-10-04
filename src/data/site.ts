@@ -13,6 +13,8 @@ export const site = {
     'Open to full-time, part-time, and internship roles in Bosnia and Herzegovina (remote, hybrid, on-site).',
   location: 'Sarajevo, BiH',
   email: 'amartopalovic27@gmail.com',
+  phone: '+387 61 559 610',
+  phoneHref: 'tel:+38761559610',
   github: 'https://github.com/amartopalovic',
   linkedin: 'https://www.linkedin.com/in/amar-topalovic-223a6836a/',
   cvPath: '/Amar-Topalovic-CV.pdf',

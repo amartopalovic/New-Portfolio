@@ -26,7 +26,7 @@ Personal portfolio site for Amar Topalović.
 public/_redirects        Netlify SPA fallback (/* -> /index.html 200)
 src/main.tsx             Entry: MotionConfig + RouterProvider
 src/router.tsx           Route table (all routes share the Layout)
-src/data/site.ts         Site data (name, intro, availability, contact links, CV path, nav items)
+src/data/site.ts         Site data (name, intro, availability, contact details, CV path, nav items)
 src/data/projects.ts     Project data (card + detail content, categories), filter options, Home selection
 src/data/experience.ts   Experience snapshot
 src/data/about.ts        About page content (intro, what I do, languages, profile photo)
@@ -36,10 +36,14 @@ src/data/skills.ts       Core stack list and About skill groups
 src/components/          ButtonLink, button classes, ImageSlot, ProjectCard (Home + Projects), Reveal
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
 src/components/home/     Home sections: Hero, FeaturedProject
-src/pages/               Page components (Home, Projects, ProjectDetail, About, Resume, NotFound, temporary PagePlaceholder)
+src/pages/               Page components (Home, Projects, ProjectDetail, About, Resume, Contact, NotFound)
 ```
 
 The CV is served from `public/Amar-Topalovic-CV.pdf`.
+
+The site is frontend-only: there is no contact form and no backend. Visitors
+get in touch through the direct email, phone, LinkedIn and GitHub links on the
+Contact page.
 
 ## Images
 
