@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { ImageSlot } from '../components/ImageSlot'
 import { PageMeta } from '../components/PageMeta'
 import { Reveal } from '../components/Reveal'
+import { TagList } from '../components/TagList'
 import { about } from '../data/about'
 import { descriptions } from '../data/seo'
 import { pageTitle } from '../data/site'
@@ -69,18 +70,7 @@ export function About() {
             <div key={group.name} className="flex flex-col gap-1">
               <dt className="text-body-sm text-secondary">{group.name}</dt>
               <dd>
-                <ul className="flex flex-wrap gap-x-2">
-                  {group.items.map((item, index) => (
-                    <li key={item}>
-                      {index > 0 && (
-                        <span aria-hidden="true" className="mr-2">
-                          ·
-                        </span>
-                      )}
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <TagList items={group.items} className="flex flex-wrap gap-x-2" />
               </dd>
             </div>
           ))}

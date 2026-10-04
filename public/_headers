@@ -1,0 +1,9 @@
+# Vite content-hashes everything in /assets, so it can be cached forever.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Site-wide safe headers. HTML, sitemap, robots and the CV keep Netlify's
+# default revalidating cache (no long Cache-Control here).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

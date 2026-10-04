@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react'
+import { AnimatePresence, m } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router'
 import { navItems, site } from '../../data/site'
@@ -86,7 +86,7 @@ export function Header() {
 
       <AnimatePresence>
         {menuOpen && (
-          <motion.div
+          <m.div
             id={MENU_ID}
             className="bg-canvas lg:hidden"
             initial={{ opacity: 0, y: -8 }}
@@ -121,7 +121,7 @@ export function Header() {
                 Download CV
               </ButtonLink>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

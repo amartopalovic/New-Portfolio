@@ -4,6 +4,7 @@ import { ButtonLink } from '../components/ButtonLink'
 import { ImageSlot } from '../components/ImageSlot'
 import { PageMeta } from '../components/PageMeta'
 import { Reveal } from '../components/Reveal'
+import { TagList } from '../components/TagList'
 import { getProject } from '../data/projects'
 import { pageTitle } from '../data/site'
 import { NotFound } from './NotFound'
@@ -62,18 +63,11 @@ export function ProjectDetail() {
             {project.title}
           </h1>
           <p className="max-w-3xl text-body-xl">{project.summary}</p>
-          <ul aria-label="Technologies" className="flex flex-wrap gap-x-2 text-body-sm">
-            {project.tags.map((tag, index) => (
-              <li key={tag}>
-                {index > 0 && (
-                  <span aria-hidden="true" className="mr-2">
-                    ·
-                  </span>
-                )}
-                {tag}
-              </li>
-            ))}
-          </ul>
+          <TagList
+            items={project.tags}
+            aria-label="Technologies"
+            className="flex flex-wrap gap-x-2 text-body-sm"
+          />
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <ButtonLink to={project.githubUrl} srLabel={`for ${project.title}`}>
               View on GitHub

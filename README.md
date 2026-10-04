@@ -24,9 +24,10 @@ Personal portfolio site for Amar Topalović.
 
 ```
 public/_redirects        Netlify SPA fallback (/* -> /index.html 200)
+public/_headers          Netlify headers: immutable caching for /assets, nosniff, referrer policy
 public/                  favicon.svg, apple-touch-icon.png, og-image.png, robots.txt, sitemap.xml
-src/main.tsx             Entry: MotionConfig + RouterProvider
-src/router.tsx           Route table (all routes share the Layout)
+src/main.tsx             Entry: MotionConfig + LazyMotion + RouterProvider
+src/router.tsx           Route table (all routes share the Layout; pages other than Home load lazily)
 src/data/site.ts         Site data (URL, name, intro, availability, contact details, CV path, nav items)
 src/data/seo.ts          Meta descriptions per page
 src/data/projects.ts     Project data (card + detail content, categories), filter options, Home selection
@@ -35,7 +36,7 @@ src/data/about.ts        About page content (intro, what I do, languages, profil
 src/data/resume.ts       Resume entries (experience, education, certificates), recommendation letter URL
 src/data/image.ts        Shared ImageAsset type
 src/data/skills.ts       Core stack list and About skill groups
-src/components/          ButtonLink, button classes, ImageSlot, PageMeta, ProjectCard (Home + Projects), Reveal
+src/components/          ButtonLink, button classes, ImageSlot, PageMeta, ProjectCard (Home + Projects), Reveal, TagList
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
 src/components/home/     Home sections: Hero, FeaturedProject
 src/pages/               Page components (Home, Projects, ProjectDetail, About, Resume, Contact, NotFound)
@@ -89,6 +90,19 @@ The About page shows the photo in a 4:5 `ImageSlot` (`aspect-portrait`).
 
 Export the photo at 4:5; it is cropped with `object-cover`. Once it is set, the
 "Photo placeholder" block disappears.
+
+## Performance
+
+- Route splitting: `Layout` and `Home` are in the main bundle; every other page
+  is loaded with React Router's route-level `lazy`, so each is its own chunk.
+- Motion: the app is wrapped in `LazyMotion` with the `domAnimation` feature set
+  (loaded synchronously) and components use `m.*`. `strict` makes any `motion.*`
+  usage throw. Switch to `domMax` only if layout or drag animations are added.
+- Scroll: React Router's `ScrollRestoration` (in `Layout`) starts link
+  navigations at the top, restores position on Back/Forward and scrolls to
+  `#hash` targets. The Projects filter uses `preventScrollReset`.
+- Caching: `public/_headers` marks hashed `/assets/*` files as immutable for a
+  year; HTML, the sitemap, robots and the CV keep Netlify's default revalidation.
 
 ## SEO
 

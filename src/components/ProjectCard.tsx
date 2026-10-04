@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import type { Project } from '../data/projects'
 import { ButtonLink } from './ButtonLink'
 import { ImageSlot } from './ImageSlot'
+import { TagList } from './TagList'
 
 type ProjectCardProps = {
   project: Project
@@ -27,18 +28,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </Link>
       </h3>
       <p>{project.summary}</p>
-      <ul aria-label="Technologies" className="flex flex-wrap gap-x-2 text-body-sm">
-        {project.tags.map((tag, index) => (
-          <li key={tag}>
-            {index > 0 && (
-              <span aria-hidden="true" className="mr-2">
-                ·
-              </span>
-            )}
-            {tag}
-          </li>
-        ))}
-      </ul>
+      <TagList
+        items={project.tags}
+        aria-label="Technologies"
+        className="flex flex-wrap gap-x-2 text-body-sm"
+      />
       <div className="relative z-10 mt-auto flex flex-wrap gap-x-6 self-start">
         <ButtonLink
           to={project.githubUrl}

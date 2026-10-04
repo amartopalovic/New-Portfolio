@@ -1,4 +1,4 @@
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { useSearchParams } from 'react-router'
 import { PageMeta } from '../components/PageMeta'
 import { ProjectCard } from '../components/ProjectCard'
@@ -32,7 +32,7 @@ export function Projects() {
         else next.delete('category')
         return next
       },
-      { replace: true },
+      { replace: true, preventScrollReset: true },
     )
   }
 
@@ -76,7 +76,7 @@ export function Projects() {
         </div>
 
         <h2 className="sr-only">Project list</h2>
-        <motion.ul
+        <m.ul
           key={active ?? 'all'}
           className="grid gap-12 md:grid-cols-2 md:gap-8"
           initial={{ opacity: 0 }}
@@ -88,7 +88,7 @@ export function Projects() {
               <ProjectCard project={project} />
             </li>
           ))}
-        </motion.ul>
+        </m.ul>
       </div>
     </section>
   )

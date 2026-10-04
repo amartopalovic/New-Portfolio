@@ -1,4 +1,4 @@
-import { motion, type Variants } from 'motion/react'
+import { m, type Variants } from 'motion/react'
 import { Fragment } from 'react'
 import { site } from '../../data/site'
 import { ButtonLink } from '../ButtonLink'
@@ -17,13 +17,13 @@ const item: Variants = {
 export function Hero() {
   return (
     <section className="bg-hero px-gutter py-band lg:py-35">
-      <motion.div
+      <m.div
         className="mx-auto flex max-w-content flex-col gap-6"
         variants={container}
         initial="hidden"
         animate="show"
       >
-        <motion.h1 variants={item} className="text-display-xxl text-ink">
+        <m.h1 variants={item} className="text-display-xxl text-ink">
           {site.name},{' '}
           {/* Keep "Full-Stack" from breaking at its hyphen. */}
           {site.role.split(' ').map((word, index) => (
@@ -32,20 +32,20 @@ export function Hero() {
               <span className="whitespace-nowrap">{word}</span>
             </Fragment>
           ))}
-        </motion.h1>
-        <motion.p variants={item} className="max-w-3xl text-body-xl">
+        </m.h1>
+        <m.p variants={item} className="max-w-3xl text-body-xl">
           {site.intro}
-        </motion.p>
-        <motion.div variants={item} className="flex flex-wrap items-center gap-6">
+        </m.p>
+        <m.div variants={item} className="flex flex-wrap items-center gap-6">
           <ButtonLink to="/projects">View Projects</ButtonLink>
           <ButtonLink to="/contact" variant="text">
             Contact Me
           </ButtonLink>
-        </motion.div>
-        <motion.p variants={item} className="text-secondary">
+        </m.div>
+        <m.p variants={item} className="text-secondary">
           {site.availability}
-        </motion.p>
-      </motion.div>
+        </m.p>
+      </m.div>
     </section>
   )
 }
