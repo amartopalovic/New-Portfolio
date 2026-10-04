@@ -30,12 +30,13 @@ src/data/site.ts         Site data (name, intro, availability, contact links, CV
 src/data/projects.ts     Project data (card + detail content, categories), filter options, Home selection
 src/data/experience.ts   Experience snapshot
 src/data/about.ts        About page content (intro, what I do, languages, profile photo)
+src/data/resume.ts       Resume entries (experience, education, certificates), recommendation letter URL
 src/data/image.ts        Shared ImageAsset type
 src/data/skills.ts       Core stack list and About skill groups
 src/components/          ButtonLink, button classes, ImageSlot, ProjectCard (Home + Projects), Reveal
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
 src/components/home/     Home sections: Hero, FeaturedProject
-src/pages/               Page components (Home, Projects, ProjectDetail, About, NotFound, temporary PagePlaceholder)
+src/pages/               Page components (Home, Projects, ProjectDetail, About, Resume, NotFound, temporary PagePlaceholder)
 ```
 
 The CV is served from `public/Amar-Topalovic-CV.pdf`.

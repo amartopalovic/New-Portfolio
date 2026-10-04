@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router'
 import {
   buttonClasses,
+  largeFilledButtonClasses,
   smallTextButtonClasses,
   type ButtonSize,
   type ButtonVariant,
@@ -10,7 +11,7 @@ import {
 type ButtonLinkProps = {
   to: string
   variant?: ButtonVariant
-  /** "sm" renders the text variant at body-md size (ignored for filled). */
+  /** "sm": text variant at body-md size. "lg": large filled button. Otherwise ignored. */
   size?: ButtonSize
   children: ReactNode
   /** Extra visually hidden text appended to the accessible name. */
@@ -32,7 +33,11 @@ export function ButtonLink({
   onClick,
 }: ButtonLinkProps) {
   const base =
-    variant === 'text' && size === 'sm' ? smallTextButtonClasses : buttonClasses[variant]
+    variant === 'text' && size === 'sm'
+      ? smallTextButtonClasses
+      : variant === 'filled' && size === 'lg'
+        ? largeFilledButtonClasses
+        : buttonClasses[variant]
   const classes = `${base} ${className}`.trim()
   const isExternal = /^[a-z][a-z\d+.-]*:/i.test(to)
   const hiddenLabel = srLabel && <span className="sr-only"> {srLabel}</span>

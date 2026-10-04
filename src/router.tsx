@@ -7,6 +7,7 @@ import { NotFound } from './pages/NotFound'
 import { PagePlaceholder } from './pages/PagePlaceholder'
 import { ProjectDetail } from './pages/ProjectDetail'
 import { Projects } from './pages/Projects'
+import { Resume } from './pages/Resume'
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
       { path: 'projects', Component: Projects },
       { path: 'projects/:slug', Component: ProjectDetail },
       { path: 'about', Component: About },
-      { path: 'resume', element: <PagePlaceholder name="Resume" title={pageTitle('Resume')} /> },
+      { path: 'resume', Component: Resume },
       {
         path: 'contact',
         element: <PagePlaceholder name="Contact" title={pageTitle('Contact')} />,
