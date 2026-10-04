@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link, useParams } from 'react-router'
 import { ButtonLink } from '../components/ButtonLink'
 import { ImageSlot } from '../components/ImageSlot'
+import { PageMeta } from '../components/PageMeta'
 import { Reveal } from '../components/Reveal'
 import { getProject } from '../data/projects'
 import { pageTitle } from '../data/site'
@@ -44,7 +45,7 @@ export function ProjectDetail() {
 
   return (
     <>
-      <title>{pageTitle(project.title)}</title>
+      <PageMeta title={pageTitle(project.title)} description={project.summary} />
 
       {/* No bottom padding: the canvas Overview band continues this intro block. */}
       <section className="px-gutter pt-band lg:pt-35">

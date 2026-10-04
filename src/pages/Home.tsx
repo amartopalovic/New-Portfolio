@@ -1,10 +1,12 @@
 import { ButtonLink } from '../components/ButtonLink'
 import { FeaturedProject } from '../components/home/FeaturedProject'
 import { Hero } from '../components/home/Hero'
+import { PageMeta } from '../components/PageMeta'
 import { ProjectCard } from '../components/ProjectCard'
 import { Reveal } from '../components/Reveal'
 import { experience } from '../data/experience'
 import { featuredProjectSlug, getProject, getProjects, homeProjectSlugs } from '../data/projects'
+import { descriptions } from '../data/seo'
 import { site } from '../data/site'
 import { coreStack } from '../data/skills'
 
@@ -18,7 +20,7 @@ export function Home() {
 
   return (
     <>
-      <title>{site.defaultTitle}</title>
+      <PageMeta title={site.defaultTitle} description={descriptions.home} />
 
       <Hero />
 

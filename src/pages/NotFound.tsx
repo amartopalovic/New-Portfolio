@@ -1,10 +1,16 @@
 import { ButtonLink } from '../components/ButtonLink'
+import { PageMeta } from '../components/PageMeta'
+import { descriptions } from '../data/seo'
 import { pageTitle } from '../data/site'
 
 export function NotFound() {
   return (
     <section className="px-gutter py-band">
-      <title>{pageTitle('Page not found')}</title>
+      <PageMeta
+        title={pageTitle('Page not found')}
+        description={descriptions.notFound}
+        noindex
+      />
       <div className="mx-auto flex max-w-content flex-col gap-6">
         <h1 className="text-display-xl text-ink">Page not found</h1>
         <p>Sorry, the page you were looking for doesn’t exist or has moved.</p>

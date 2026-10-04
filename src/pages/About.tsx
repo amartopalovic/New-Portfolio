@@ -1,7 +1,9 @@
 import type { ReactNode } from 'react'
 import { ImageSlot } from '../components/ImageSlot'
+import { PageMeta } from '../components/PageMeta'
 import { Reveal } from '../components/Reveal'
 import { about } from '../data/about'
+import { descriptions } from '../data/seo'
 import { pageTitle } from '../data/site'
 import { skillGroups } from '../data/skills'
 
@@ -25,7 +27,7 @@ function AboutSection({ title, alt = false, children }: AboutSectionProps) {
 export function About() {
   return (
     <>
-      <title>{pageTitle('About')}</title>
+      <PageMeta title={pageTitle('About')} description={descriptions.about} />
 
       <section className="px-gutter py-band lg:py-35">
         <div className="mx-auto grid max-w-content gap-8 lg:grid-cols-3 lg:items-start lg:gap-12">

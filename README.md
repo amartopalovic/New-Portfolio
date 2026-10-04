@@ -24,16 +24,18 @@ Personal portfolio site for Amar Topalović.
 
 ```
 public/_redirects        Netlify SPA fallback (/* -> /index.html 200)
+public/                  favicon.svg, apple-touch-icon.png, og-image.png, robots.txt, sitemap.xml
 src/main.tsx             Entry: MotionConfig + RouterProvider
 src/router.tsx           Route table (all routes share the Layout)
-src/data/site.ts         Site data (name, intro, availability, contact details, CV path, nav items)
+src/data/site.ts         Site data (URL, name, intro, availability, contact details, CV path, nav items)
+src/data/seo.ts          Meta descriptions per page
 src/data/projects.ts     Project data (card + detail content, categories), filter options, Home selection
 src/data/experience.ts   Experience snapshot
 src/data/about.ts        About page content (intro, what I do, languages, profile photo)
 src/data/resume.ts       Resume entries (experience, education, certificates), recommendation letter URL
 src/data/image.ts        Shared ImageAsset type
 src/data/skills.ts       Core stack list and About skill groups
-src/components/          ButtonLink, button classes, ImageSlot, ProjectCard (Home + Projects), Reveal
+src/components/          ButtonLink, button classes, ImageSlot, PageMeta, ProjectCard (Home + Projects), Reveal
 src/components/layout/   Layout (skip link, focus/scroll on navigation), Header, Footer
 src/components/home/     Home sections: Hero, FeaturedProject
 src/pages/               Page components (Home, Projects, ProjectDetail, About, Resume, Contact, NotFound)
@@ -87,6 +89,19 @@ The About page shows the photo in a 4:5 `ImageSlot` (`aspect-portrait`).
 
 Export the photo at 4:5; it is cropped with `object-cover`. Once it is set, the
 "Photo placeholder" block disappears.
+
+## SEO
+
+- The public site URL is `site.url` in `src/data/site.ts` (no trailing slash).
+- Each page renders `PageMeta`, which sets its title, meta description and
+  canonical link (React 19 hoists them into `<head>`). Descriptions live in
+  `src/data/seo.ts`; project pages use the project's `summary`. The 404 page
+  (also shown for unknown project slugs) adds `noindex`, because Netlify's SPA
+  fallback serves it with status 200.
+- The Open Graph/Twitter tags and the Person structured data in `index.html` are
+  static and site-wide (crawlers that don't run JavaScript only see these).
+- `public/sitemap.xml` is a static file: update it when routes or project slugs
+  change. `public/robots.txt` points to it.
 
 ## Design
 

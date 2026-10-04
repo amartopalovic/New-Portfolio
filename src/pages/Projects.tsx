@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { useSearchParams } from 'react-router'
+import { PageMeta } from '../components/PageMeta'
 import { ProjectCard } from '../components/ProjectCard'
 import {
   isProjectCategory,
@@ -7,6 +8,7 @@ import {
   projects,
   type ProjectCategory,
 } from '../data/projects'
+import { descriptions } from '../data/seo'
 import { pageTitle } from '../data/site'
 
 const chipBase =
@@ -38,7 +40,7 @@ export function Projects() {
 
   return (
     <section className="px-gutter py-band lg:py-35">
-      <title>{pageTitle('Projects')}</title>
+      <PageMeta title={pageTitle('Projects')} description={descriptions.projects} />
       <div className="mx-auto flex max-w-content flex-col gap-8">
         <div className="flex flex-col gap-6">
           <h1 className="text-display-xl text-ink">Projects</h1>

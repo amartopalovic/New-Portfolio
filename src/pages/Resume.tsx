@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { ButtonLink } from '../components/ButtonLink'
+import { PageMeta } from '../components/PageMeta'
 import { Reveal } from '../components/Reveal'
 import {
   certificateEntries,
@@ -8,6 +9,7 @@ import {
   recommendationLetterUrl,
   type ResumeEntry,
 } from '../data/resume'
+import { descriptions } from '../data/seo'
 import { pageTitle, site } from '../data/site'
 
 type ResumeSectionProps = {
@@ -62,7 +64,7 @@ function EntryList({ entries }: { entries: readonly ResumeEntry[] }) {
 export function Resume() {
   return (
     <>
-      <title>{pageTitle('Resume')}</title>
+      <PageMeta title={pageTitle('Resume')} description={descriptions.resume} />
 
       <section className="px-gutter pt-band pb-band lg:pt-35">
         <div className="mx-auto flex max-w-content flex-col items-start gap-8">

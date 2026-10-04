@@ -3,11 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title, description, canonical and robots are set per page by React (PageMeta). -->
+    <meta name="theme-color" content="#fafafa" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Site-wide social preview tags (crawlers that don't run JavaScript read only these). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Amar Topalović" />
+    <meta property="og:title" content="Amar Topalović | Full-Stack Software Developer" />
     <meta
-      name="description"
+      property="og:description"
       content="Third-year Software Engineering student building full-stack apps with AI integration, REST APIs, authentication, and background processing."
     />
-    <title>Amar Topalović | Full-Stack Software Developer</title>
+    <meta property="og:url" content="https://amarr-portfolio.netlify.app" />
+    <meta property="og:image" content="https://amarr-portfolio.netlify.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Amar Topalović, Full-Stack Software Developer"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Amar Topalović | Full-Stack Software Developer" />
+    <meta
+      name="twitter:description"
+      content="Third-year Software Engineering student building full-stack apps with AI integration, REST APIs, authentication, and background processing."
+    />
+    <meta name="twitter:image" content="https://amarr-portfolio.netlify.app/og-image.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Amar Topalović",
+        "jobTitle": "Full-Stack Software Developer",
+        "url": "https://amarr-portfolio.netlify.app",
+        "sameAs": [
+          "https://github.com/amartopalovic",
+          "https://www.linkedin.com/in/amar-topalovic-223a6836a/"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

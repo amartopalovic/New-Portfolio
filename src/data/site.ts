@@ -4,6 +4,8 @@ export type NavItem = {
 }
 
 export const site = {
+  /** Public site URL, no trailing slash. Used for canonical links. */
+  url: 'https://amarr-portfolio.netlify.app',
   name: 'Amar Topalović',
   role: 'Full-Stack Software Developer',
   defaultTitle: 'Amar Topalović | Full-Stack Software Developer',

@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
+import { PageMeta } from '../components/PageMeta'
 import { Reveal } from '../components/Reveal'
+import { descriptions } from '../data/seo'
 import { pageTitle, site } from '../data/site'
 
 // Underlined so links don't rely on colour alone; py-2 gives a 44px hit area,
@@ -53,7 +55,7 @@ function ContactSection({ title, alt = false, children }: ContactSectionProps) {
 export function Contact() {
   return (
     <>
-      <title>{pageTitle('Contact')}</title>
+      <PageMeta title={pageTitle('Contact')} description={descriptions.contact} />
 
       <section className="px-gutter pt-band pb-band lg:pt-35">
         <div className="mx-auto flex max-w-content flex-col gap-6">
