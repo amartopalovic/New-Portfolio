@@ -6,6 +6,7 @@ import { ButtonLink } from '../ButtonLink'
 import { buttonClasses } from '../buttonClasses'
 
 const MENU_ID = 'mobile-menu'
+const [firstName, ...surname] = site.name.split(' ')
 
 // Keep the persistent active-page marker dark; cyan is a decorative hover accent.
 const navLinkClasses =
@@ -75,10 +76,24 @@ export function Header() {
       <div className="mx-auto flex max-w-content items-center justify-between gap-6 py-4">
         <Link
           to="/"
-          className="inline-flex min-h-11 items-center gap-3 text-body-lg text-ink transition-colors hover:text-secondary"
+          aria-label={site.name}
+          className="group inline-flex min-h-11 shrink-0 items-center gap-3 text-ink"
         >
-          <span aria-hidden="true" className="h-5 w-1 -skew-x-12 bg-accent" />
-          {site.name}
+          <img
+            src="/favicon.svg?v=2"
+            alt=""
+            width={44}
+            height={44}
+            className="size-10 shrink-0 sm:size-11"
+          />
+          <span className="flex flex-col items-start gap-1">
+            <span className="text-body-sm leading-none tracking-widest text-secondary uppercase">
+              {firstName}
+            </span>
+            <span className="text-body-lg leading-none tracking-tight uppercase transition-colors group-hover:text-secondary sm:text-body-xl">
+              {surname.join(' ')}
+            </span>
+          </span>
         </Link>
 
         <div className="hidden items-center gap-8 lg:flex">
