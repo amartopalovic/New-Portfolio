@@ -103,6 +103,53 @@
   background-image: var(--gradient-hero);
 }
 
+/*
+ * Home hero only: the decorative AI-generated artwork (see CLAUDE.md for the
+ * approved exceptions) over the hero gradient, on wide screens only. Below the
+ * cutoff it is exactly bg-hero, so the image is never requested there.
+ *
+ * The art sits on ::before so it can be masked: fully transparent over the
+ * content column (its dark seams and cyan hairline otherwise fall under the
+ * text and fail contrast), fading in just outside it. The top layer fades the
+ * art's #F1F1F1 bottom edge into the canvas band below.
+ */
+@utility bg-hero-art {
+  background-image: var(--gradient-hero);
+
+  @media (width >= 64rem) {
+    --hero-art-column-start: calc(50% - var(--container-content) / 2);
+    --hero-art-column-end: calc(50% + var(--container-content) / 2);
+    --hero-art-fade: --spacing(24);
+
+    position: relative;
+    isolation: isolate;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(to bottom, rgb(250 250 250 / 0) 70%, var(--canvas) 100%),
+        var(--gradient-hero),
+        url('./assets/images/hero/hero-background.webp');
+      background-size: auto, auto, cover;
+      background-position: center, center, right center;
+      background-repeat: no-repeat;
+      /* Tint the near-white art with the hero gradient so it meets the
+         unmasked column without a visible panel edge. */
+      background-blend-mode: normal, multiply, normal;
+      mask-image: linear-gradient(
+        to right,
+        #000 calc(var(--hero-art-column-start) - var(--hero-art-fade)),
+        transparent var(--hero-art-column-start),
+        transparent var(--hero-art-column-end),
+        #000 calc(var(--hero-art-column-end) + var(--hero-art-fade))
+      );
+    }
+  }
+}
+
 @layer base {
   html {
     font-synthesis-weight: none;

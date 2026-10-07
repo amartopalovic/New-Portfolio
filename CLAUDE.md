@@ -19,6 +19,7 @@ A frontend-only personal portfolio (Vite + React 19 + TypeScript strict + Tailwi
 ## Hard rules
 
 - **`DESIGN.md` is the visual authority.** Flat colour-blocking, no shadows/blur/borders as structure, single font weight (400 only), sharp corners (`rounded-xs` 5px only on filled buttons and the Projects filter chips), no gradients except the hero, accent `#00FFD0` unused, muted `#B6B6B6` never used for text (use `text-secondary`).
+- **Home hero artwork exceptions (approved by the owner, this one artwork only):** the decorative background art on the Home hero (`bg-hero-art`, `src/assets/images/hero/hero-background.webp`) may have metallic shading and its thin cyan hairline. These exceptions apply only to that artwork. The rest of the site stays flat, shadow-free and sharp-cornered, and the accent `#00FFD0` stays otherwise unused. The art is wide-screen only (`lg` and up) and masked off the content column so it never sits under text; `bg-hero` itself is unchanged.
 - **All site copy and facts come from the owner's CV.** Never invent, embellish or "correct" text, dates, numbers, links or project facts in `src/data/*`.
 - **Use theme tokens only** (defined in `src/index.css`). No arbitrary pixel values or raw colours in components.
 - Named spacing tokens are only `section` (40px), `band` (52px), `gutter` (20px). DESIGN.md's xxs..xxxl map to Tailwind's numeric scale (1..8); named versions were removed because they collided with Tailwind sizes like `max-w-xl`.

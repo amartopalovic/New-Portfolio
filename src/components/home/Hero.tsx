@@ -16,7 +16,7 @@ const item: Variants = {
 
 export function Hero() {
   return (
-    <section className="bg-hero px-gutter py-band lg:py-35">
+    <section className="bg-hero-art px-gutter py-band lg:py-35">
       <m.div
         className="mx-auto flex max-w-content flex-col gap-6"
         variants={container}

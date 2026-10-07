@@ -66,6 +66,14 @@ Contact page.
   git-ignored source material: export both sizes from the originals and commit
   only the optimized files in `src/assets/images/`.
 
+### Hero background
+
+The Home hero's background (`src/assets/images/hero/hero-background.webp`) is
+AI-generated artwork, optimized to WebP (1942x809, quality 95). The original
+PNG is kept outside the repo in `Pictures/`. It is a CSS background
+(`bg-hero-art` in `src/index.css`), shown from the `lg` breakpoint up only, so
+smaller screens never download it.
+
 ### Adding a project's images
 
 Project images render in `ImageSlot`, a fixed 16:9 box (`aspect-screenshot`)
