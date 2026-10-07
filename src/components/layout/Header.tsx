@@ -7,8 +7,29 @@ import { buttonClasses } from '../buttonClasses'
 
 const MENU_ID = 'mobile-menu'
 
+// Keep the persistent active-page marker dark; cyan is a decorative hover accent.
 const navLinkClasses =
-  'transition-colors hover:text-secondary aria-[current=page]:underline aria-[current=page]:underline-offset-4'
+  'relative flex min-h-11 items-center text-ink transition-colors hover:text-secondary after:absolute after:inset-x-0 after:bottom-1 after:h-0.5 after:origin-left after:scale-x-0 after:bg-accent after:transition-transform hover:after:scale-x-100 focus-visible:after:scale-x-100 aria-[current=page]:after:scale-x-100 aria-[current=page]:after:bg-ink'
+
+const cvLinkClasses =
+  'group gap-3 hover:bg-accent! hover:text-on-accent focus-visible:bg-accent focus-visible:text-on-accent'
+
+function DownloadIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-4 shrink-0 text-accent transition-colors group-hover:text-on-accent group-focus-visible:text-on-accent"
+    >
+      <path d="M12 3v12m-4-4 4 4 4-4M5 16v4h14v-4" />
+    </svg>
+  )
+}
 
 function useScrolled() {
   const [scrolled, setScrolled] = useState(false)
@@ -45,13 +66,18 @@ export function Header() {
   }, [menuOpen])
 
   const solid = scrolled || menuOpen
+  const surface = pathname === '/' && !solid ? 'bg-hero-start' : 'bg-surface-alt'
 
   return (
     <header
-      className={`sticky top-0 z-40 px-gutter transition-colors ${solid ? 'bg-canvas' : 'bg-transparent'}`}
+      className={`sticky top-0 z-40 px-gutter transition-colors ${surface}`}
     >
       <div className="mx-auto flex max-w-content items-center justify-between gap-6 py-4">
-        <Link to="/" className="text-body-lg text-ink transition-colors hover:text-secondary">
+        <Link
+          to="/"
+          className="inline-flex min-h-11 items-center gap-3 text-body-lg text-ink transition-colors hover:text-secondary"
+        >
+          <span aria-hidden="true" className="h-5 w-1 -skew-x-12 bg-accent" />
           {site.name}
         </Link>
 
@@ -67,8 +93,9 @@ export function Header() {
               ))}
             </ul>
           </nav>
-          <ButtonLink to={site.cvPath} download srLabel="(PDF)">
+          <ButtonLink to={site.cvPath} download srLabel="(PDF)" className={cvLinkClasses}>
             Download CV
+            <DownloadIcon />
           </ButtonLink>
         </div>
 
@@ -88,7 +115,7 @@ export function Header() {
         {menuOpen && (
           <m.div
             id={MENU_ID}
-            className="bg-canvas lg:hidden"
+            className="bg-surface-alt lg:hidden"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
@@ -103,7 +130,7 @@ export function Header() {
                   <li key={item.to}>
                     <NavLink
                       to={item.to}
-                      className={`flex min-h-11 items-center text-body-lg ${navLinkClasses}`}
+                      className={`w-fit text-body-lg ${navLinkClasses}`}
                       onClick={closeMenu}
                     >
                       {item.label}
@@ -115,10 +142,11 @@ export function Header() {
                 to={site.cvPath}
                 download
                 srLabel="(PDF)"
-                className="self-start"
+                className={`self-start ${cvLinkClasses}`}
                 onClick={closeMenu}
               >
                 Download CV
+                <DownloadIcon />
               </ButtonLink>
             </nav>
           </m.div>
